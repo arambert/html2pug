@@ -62,6 +62,30 @@ test('Empty attributes', t => {
   t.is(generated, expected)
 })
 
+test('Class with angular interpolation', t => {
+  const generated = html2pug(
+    `<span class="thing-{{ someAngular }}-id">Test</span>`,
+    {
+      fragment: true
+    }
+  )
+
+  const expected = `span(class='thing-{{ someAngular }}-id') Test`
+  t.is(generated, expected)
+})
+
+test('Id with angular interpolation', t => {
+  const generated = html2pug(
+    `<span id="thing-{{ someAngular }}-id">Test</span>`,
+    {
+      fragment: true
+    }
+  )
+
+  const expected = `span(id='thing-{{ someAngular }}-id') Test`
+  t.is(generated, expected)
+})
+
 test('Multiple attributes', t => {
   const generated = html2pug(`<span attr1 attr2="ok">Test</span>`, {
     fragment: true

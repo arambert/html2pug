@@ -98,23 +98,19 @@ class Parser {
     attributes.forEach(({ name, value }) => {
       let shorten = false
 
-      switch (name) {
-        case 'id':
-          shorten = true
-          pugNode += `#${value}`
-          break
-        case 'class':
-          shorten = true
-          pugNode += `.${value.split(' ').join('.')}`
-          break
-        default:
-          if (!value) {
-            attributeList.push(`${name}`)
-          } else {
-            const q = /'/.test(value) ? '"' : "'"
-            attributeList.push(`${name}=${q}${value}${q}`)
-          }
-          break
+      if (name === 'id' && value.indexOf('{{') < 0) {
+        shorten = true
+        pugNode += `#${value}`
+      } else if (name === 'class' && value.indexOf('{{') < 0) {
+        shorten = true
+        pugNode += `.${value.split(' ').join('.')}`
+      } else {
+        if (!value) {
+          attributeList.push(`${name}`)
+        } else {
+          const q = /'/.test(value) ? '"' : "'"
+          attributeList.push(`${name}=${q}${value}${q}`)
+        }
       }
 
       // Remove div tagName
