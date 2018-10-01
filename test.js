@@ -58,6 +58,15 @@ test('Empty attributes', t => {
     fragment: true
   })
 
-  const expected = `span(translate, #templatevar) Test`
+  const expected = `span(translate #templatevar) Test`
+  t.is(generated, expected)
+})
+
+test('Multiple attributes', t => {
+  const generated = html2pug(`<span attr1 attr2="ok">Test</span>`, {
+    fragment: true
+  })
+
+  const expected = `span(attr1 attr2='ok') Test`
   t.is(generated, expected)
 })

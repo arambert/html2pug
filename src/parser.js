@@ -124,7 +124,7 @@ class Parser {
     })
 
     if (attributeList.length) {
-      pugNode += `(${attributeList.join(', ')})`
+      pugNode += `(${attributeList.join(' ')})`
     }
 
     return pugNode
